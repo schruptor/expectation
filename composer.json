@@ -1,0 +1,34 @@
+{
+  "name": "schruptor/expextation",
+  "description": "description",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "schruptor",
+      "email": "schruptor.expectation@mailbox.org"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Schruptor\\Expectation\\": "src"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Schruptor\\Expectation\\Tests\\": "tests"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0",
+    "pestphp/pest": "^0.2.3",
+    "larapack/dd": "dev-master"
+  }
+}
