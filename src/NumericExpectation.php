@@ -11,26 +11,11 @@ class NumericExpectation extends Expectation
         return $this;
     }
 
-    public function toBe42()
-    {
-        return $this->is42();
-    }
-
-    public function toBeGreaterThan(float $value)
-    {
-        return $this->isGreaterThan($value);
-    }
-
     public function isGreaterThan(float $value)
     {
         $this->setResult($this->expected > $value);
 
         return $this;
-    }
-
-    public function toBeGreaterThanOrEqual(float $value)
-    {
-        return $this->isGreaterThanOrEqual($value);
     }
 
     public function isGreaterThanOrEqual(float $value)
@@ -40,21 +25,11 @@ class NumericExpectation extends Expectation
         return $this;
     }
 
-    public function toBeLessThan(float $value)
-    {
-        return $this->isLessThan($value);
-    }
-
     public function isLessThan(float $value)
     {
         $this->setResult($this->expected < $value);
 
         return $this;
-    }
-
-    public function toBeLessThanOrEqual(float $value)
-    {
-        return $this->isLessThanOrEqual($value);
     }
 
     public function isLessThanOrEqual(float $value)

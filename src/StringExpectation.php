@@ -11,8 +11,38 @@ class StringExpectation extends Expectation
         return $this;
     }
 
-    public function toContain(String $part)
+    public function isLongerThan(int $length)
     {
-        return $this->contains($part);
+        $this->setResult(strlen($this->expected) > $length);
+
+        return $this;
+    }
+
+    public function isLongerOrEqualThan(int $length)
+    {
+        $this->setResult(strlen($this->expected) >= $length);
+
+        return $this;
+    }
+
+    public function isShorterOrEqualThan(int $length)
+    {
+        $this->setResult(strlen($this->expected) <= $length);
+
+        return $this;
+    }
+
+    public function isShorterThan(int $length)
+    {
+        $this->setResult(strlen($this->expected) <= $length);
+
+        return $this;
+    }
+
+    public function lengthIs(int $length)
+    {
+        $this->setResult(strlen($this->expected) == $length);
+
+        return $this;
     }
 }

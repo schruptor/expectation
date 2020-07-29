@@ -18,6 +18,10 @@ beforeEach(function () {
     $this->file = $this->dir . '/ExpectationTest.php';
 });
 
+it(' ', function(){
+    assertTrue(expect($this->integer)->toBe($this->integer)->resolve());
+});
+
 it('assert it can use the shorthand global function', function(){
     assertTrue(expect($this->string)->isString()->resolve());
 });
@@ -70,10 +74,34 @@ it('asserts that an integer can be sloppy checked for type', function (){
     );
 });
 
+it('asserts that a scalar can be checked for type', function (){
+    assertTrue(
+        Expectation::isThat($this->integer)
+            ->isScalar()
+            ->resolve()
+    );
+});
+
+it('asserts that not a scalar can be checked for type', function (){
+    assertTrue(
+        Expectation::isThat($this->string)
+            ->isScalar()
+            ->resolve()
+    );
+});
+
 it('asserts that a float can be checked for type', function (){
     assertTrue(
         Expectation::isThat($this->float)
             ->isFloat()
+            ->resolve()
+    );
+});
+
+it('asserts that an iterable can be checked for type', function () {
+    assertTrue(
+        Expectation::isThat(iterable())
+            ->isIterable()
             ->resolve()
     );
 });
@@ -155,6 +183,31 @@ it('asserts that a object has a Property', function (){
     assertTrue(
         Expectation::isThat($this->object)
             ->hasProperty('value')
+            ->resolve()
+    );
+});
+
+it('asserts that two sting can be checked for type', function (){
+    assertTrue(
+        Expectation::isThat($this->string)
+            ->isString()
+            ->and($this->string)
+            ->not()
+            ->isString()
+            ->resolve()
+    );
+});
+
+it('asserts that expectations can be chained', function (){
+    assertTrue(
+        Expectation::isThat($this->string)
+            ->isString()
+            ->contains('Test')
+            ->and($this->integer)
+            ->not()
+            ->isString()
+            ->isInteger()
+            ->isGreaterThan(0)
             ->resolve()
     );
 });

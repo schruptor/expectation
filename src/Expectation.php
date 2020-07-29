@@ -60,6 +60,15 @@ class Expectation
         return $this->result && $check;
     }
 
+    public function and($expected)
+    {
+        $instance = self::isThat($expected);
+
+        $instance->setResult($this->resolve());
+
+        return $instance;
+    }
+
     public function not()
     {
         $this->modifier = '!';
@@ -74,15 +83,10 @@ class Expectation
         return $this;
     }
 
-    public function toBe($check)
-    {
-        return $this->is($check);
-    }
-
     public function isNot($check)
     {
         $this->not()
-            ->setResult((bool) $this->expected === $check);
+            ->is($check);
 
         return $this;
     }
@@ -94,21 +98,11 @@ class Expectation
         return $this;
     }
 
-    public function toBeTrue()
-    {
-        return $this->isTrue;
-    }
-
     public function isFalse()
     {
         $this->setResult( $this->expected === false);
 
         return $this;
-    }
-
-    public function toBeFalse()
-    {
-        return $this->isTrue;
     }
     
     public function isInstanceOf($class)
@@ -118,21 +112,12 @@ class Expectation
         return $this;
     }
 
-    public function toBeInstanceOf($class)
-    {
-        return $this->isInstanceOf($class);
-    }
 
     public function isWritableDirectory()
     {
         $this->setResult(is_writable($this->expected));
 
         return $this;
-    }
-
-    public function toBeWritableDirectory()
-    {
-        return $this->isWritableDirectory();
     }
 
     public function isDirectory()
@@ -142,21 +127,11 @@ class Expectation
         return $this;
     }
 
-    public function toBeDirectory()
-    {
-        return $this->isDirectory();
-    }
-
     public function isFile()
     {
         $this->setResult(is_file($this->expected));
 
         return $this;
-    }
-
-    public function toBeFile()
-    {
-        return $this->isFile();
     }
 
     public function isString()
@@ -166,9 +141,18 @@ class Expectation
         return $this;
     }
 
-    public function toBeString()
+    public function isIterable()
     {
-        return $this->isString();
+        $this->setResult(is_iterable($this->expected));
+
+        return $this;
+    }
+
+    public function isScalar()
+    {
+        $this->setResult(is_scalar($this->expected));
+
+        return $this;
     }
 
     public function isBool()
@@ -178,26 +162,11 @@ class Expectation
         return $this;
     }
 
-    public function toBeBool()
-    {
-        return $this->isBool();
-    }
-
-    public function toBeNumeric()
-    {
-        return $this->isNumeric();
-    }
-
     public function isNumeric()
     {
         $this->setResult(is_numeric($this->expected));
 
         return $this;
-    }
-
-    public function toBeInt()
-    {
-        return $this->isInt();
     }
 
     public function isInt()
@@ -207,11 +176,6 @@ class Expectation
         return $this;
     }
 
-    public function toBeNull()
-    {
-        return $this->isNull();
-    }
-
     public function isNull()
     {
         $this->setResult(is_null($this->expected));
@@ -219,27 +183,11 @@ class Expectation
         return $this;
     }
 
-    public function toBeInteger()
-    {
-        return $this->isInt();
-    }
-
-    public function isInteger()
-    {
-        return $this->isInt();
-    }
-
-
     public function isFloat()
     {
         $this->setResult(is_float($this->expected));
 
         return $this;
-    }
-
-    public function toBeFloat()
-    {
-        return $this->isFloat();
     }
 
     public function isEmpty()
@@ -249,21 +197,11 @@ class Expectation
         return $this;
     }
 
-    public function toBeEmpty()
-    {
-        return $this->isEmpty();
-    }
-
     public function isObject()
     {
         $this->setResult(is_object($this->expected));
 
         return $this;
-    }
-
-    public function toBeObject()
-    {
-        return $this->isObject();
     }
 
     public function isCallable()
@@ -273,21 +211,11 @@ class Expectation
         return $this;
     }
 
-    public function toBeCallable()
-    {
-        return $this->isCallable();
-    }
-
     public function isCountable()
     {
         $this->setResult(is_countable($this->expected));
 
         return $this;
-    }
-
-    public function toBeCountable()
-    {
-        return $this->isCountable();
     }
 
     public function isArray()
@@ -297,11 +225,6 @@ class Expectation
         return $this;
     }
 
-    public function toBeArray()
-    {
-        return $this->isArray();
-    }
-
     public function hasProperty(String $name)
     {
         $this->setResult(property_exists($this->expected, $name));
@@ -309,8 +232,12 @@ class Expectation
         return $this;
     }
 
-    public function toHaveProperty(String $name)
+    public function __call($name, $arguments)
     {
-        return $this->hasProperty($name);
+        if (!array_key_exists($name, Translator::get(get_class($this)))) {
+            throw new \Exception('Werfen ' . $name);
+        }
+
+        return $this->{Translator::get(get_class($this))[$name]}(...$arguments);
     }
 }
