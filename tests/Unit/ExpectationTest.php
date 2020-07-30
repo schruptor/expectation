@@ -18,8 +18,9 @@ beforeEach(function () {
     $this->file = $this->dir . '/ExpectationTest.php';
 });
 
-it(' ', function(){
+it('asserts that the translated functions can be used', function(){
     assertTrue(expect($this->integer)->toBe($this->integer)->resolve());
+    assertTrue(expect($this->integer)->toBeInteger()->resolve());
 });
 
 it('assert it can use the shorthand global function', function(){

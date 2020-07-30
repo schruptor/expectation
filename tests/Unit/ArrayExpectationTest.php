@@ -13,6 +13,7 @@ it('asserts that an array return the ArrayExpectation', function () {
 });
 
 it('asserts that an array can be counted', function () {
+    assertFalse(expect($this->array)->hasCount(2)->resolve());
     assertTrue(expect($this->array)->hasCount(3)->resolve());
 });
 
@@ -20,6 +21,11 @@ it('asserts that array can be checked for a specific key', function (){
     assertTrue(
         Expectation::isThat($this->array)
             ->hasKey('a')
+            ->resolve()
+    );
+    assertFalse(
+        Expectation::isThat($this->array)
+            ->hasKey('z')
             ->resolve()
     );
 });
@@ -30,12 +36,22 @@ it('asserts that array can be checked for specific keys', function (){
             ->hasKeys(['a', 'b', 'c'])
             ->resolve()
     );
+    assertFalse(
+        Expectation::isThat($this->array)
+            ->hasKeys(['z', 'x', 'y'])
+            ->resolve()
+    );
 });
 
 it('asserts that array can be checked for a specific value', function (){
     assertTrue(
         Expectation::isThat($this->array)
             ->hasValue('B')
+            ->resolve()
+    );
+    assertFalse(
+        Expectation::isThat($this->array)
+            ->hasValue('X')
             ->resolve()
     );
 });
@@ -46,6 +62,11 @@ it('asserts that array can be checked for specific values', function (){
             ->hasValues(['A', 'B', 'C'])
             ->resolve()
     );
+    assertFalse(
+        Expectation::isThat($this->array)
+            ->hasValues(['Z', 'X', 'Y'])
+            ->resolve()
+    );
 });
 
 it('asserts that an array is exactly the same', function (){
@@ -54,12 +75,22 @@ it('asserts that an array is exactly the same', function (){
             ->is($this->array)
             ->resolve()
     );
+    assertFalse(
+        Expectation::isThat($this->array)
+            ->is(['a' => 'b'])
+            ->resolve()
+    );
 });
 
 it('asserts that an array is not exactly the same', function (){
     assertTrue(
         Expectation::isThat($this->array)
             ->isNot(['a' => 'b'])
+            ->resolve()
+    );
+    assertFalse(
+        Expectation::isThat($this->array)
+            ->isNot($this->array)
             ->resolve()
     );
 });
