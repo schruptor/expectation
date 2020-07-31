@@ -11,6 +11,34 @@ class ArrayExpectation extends Expectation
         return $this;
     }
 
+    public function hasCountGreaterThan(int $count)
+    {
+        $this->setResult(count($this->expected) > $count);
+
+        return $this;
+    }
+
+    public function hasCountGreaterOrEqualThan(int $count)
+    {
+        $this->setResult(count($this->expected) >= $count);
+
+        return $this;
+    }
+
+    public function hasCountLessThan(int $count)
+    {
+        $this->setResult(count($this->expected) < $count);
+
+        return $this;
+    }
+
+    public function hasCountLessOrEqualThan(int $count)
+    {
+        $this->setResult(count($this->expected) <= $count);
+
+        return $this;
+    }
+
     public function hasValue($value)
     {
         $this->setResult(in_array($value, $this->expected));

@@ -17,6 +17,28 @@ it('asserts that an array can be counted', function () {
     assertTrue(expect($this->array)->hasCount(3)->resolve());
 });
 
+it('asserts that an array can be counted and count is less than', function () {
+    assertFalse(expect($this->array)->hasCountLessThan(1)->resolve());
+    assertTrue(expect($this->array)->hasCountLessThan(4)->resolve());
+});
+
+it('asserts that an array can be counted and count is less than or equal', function () {
+    assertFalse(expect($this->array)->hasCountLessOrEqualThan(1)->resolve());
+    assertTrue(expect($this->array)->hasCountLessOrEqualThan(3)->resolve());
+    assertTrue(expect($this->array)->hasCountLessOrEqualThan(4)->resolve());
+});
+
+it('asserts that an array can be counted and count is greater than', function () {
+    assertFalse(expect($this->array)->hasCountGreaterThan(4)->resolve());
+    assertTrue(expect($this->array)->hasCountGreaterThan(1)->resolve());
+});
+
+it('asserts that an array can be counted and count is greater than or equal', function () {
+    assertFalse(expect($this->array)->hasCountGreaterOrEqualThan(4)->resolve());
+    assertTrue(expect($this->array)->hasCountGreaterOrEqualThan(3)->resolve());
+    assertTrue(expect($this->array)->hasCountGreaterOrEqualThan(1)->resolve());
+});
+
 it('asserts that array can be checked for a specific key', function (){
     assertTrue(
         Expectation::isThat($this->array)
