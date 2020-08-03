@@ -189,7 +189,7 @@ it('asserts that a object has a Property', function (){
 });
 
 it('asserts that two sting can be checked for type', function (){
-    assertTrue(
+    assertFalse(
         Expectation::isThat($this->string)
             ->isString()
             ->and($this->string)

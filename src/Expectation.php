@@ -6,7 +6,6 @@ class Expectation
 {
     protected $expected;
     protected $result = null;
-    protected $modifier = null;
 
     private function __construct($expected)
     {
@@ -30,11 +29,6 @@ class Expectation
         return new self($expected);
     }
 
-    protected function setModifier($modifier)
-    {
-        $this->modifier = $modifier;
-    }
-
     /** @return bool|null */
     public function resolve()
     {
@@ -44,36 +38,29 @@ class Expectation
     protected function setResult(Bool $check) : Bool
     {
         if ($this->result == null) {
-            if ($this->modifier != null) {
-                $this->modifier = null;
-                return $this->result = !$check;
-            }
-
-            return $this->result = $check;
-        }
-
-        if ($this->modifier != null) {
-            $this->modifier = null;
-            return $this->result && !$check;
+            return $this->setResultForce($check);
         }
 
         return $this->result && $check;
+    }
+
+    public function setResultForce(Bool $check)
+    {
+        return $this->result = $check;
     }
 
     public function and($expected)
     {
         $instance = self::isThat($expected);
 
-        $instance->setResult($this->resolve());
+        $instance->setResultForce($this->resolve());
 
         return $instance;
     }
 
     public function not()
     {
-        $this->modifier = '!';
-
-        return $this;
+        return new InvertedExpectation($this);
     }
 
     public function is($check)
