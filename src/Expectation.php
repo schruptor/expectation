@@ -44,7 +44,7 @@ class Expectation
         return $this->result && $check;
     }
 
-    public function setResultForce(Bool $check)
+    public function setResultForce(Bool $check) : Bool
     {
         return $this->result = $check;
     }
