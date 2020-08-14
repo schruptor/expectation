@@ -1,7 +1,8 @@
 # A class to validate assertions
 
 ##Usage:
-``php
+
+```php
 $myString = 'Testing';
 
 expect($myString)
@@ -10,7 +11,8 @@ expect($myString)
     ->toBeShorterThan(8)
     ->resolve();
 ```
-``php
+
+```php
 use Schruptor\Expectation\Expectation;
 
 $myArray = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
@@ -21,6 +23,7 @@ Expectation::isThat($myArray)
     ->hasValue('B')
     ->resolve();
 ```
+
 ## Installation
 
 You can install the package via composer:
