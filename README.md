@@ -29,5 +29,5 @@ Expectation::isThat($myArray)
 You can install the package via composer:
 
 ```bash
-composer require schruptor/expectation
+composer require schruptor/expectation --dev
 ```
