@@ -1,13 +1,13 @@
 {
   "name": "schruptor/expectation",
-  "description": "description",
+  "description": "A class to validate assertions",
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "schruptor",
-      "email": "schruptor.expectation@mailbox.org"
+      "email": "schruptor+expectation@mailbox.org"
     }
   ],
   "require": {
