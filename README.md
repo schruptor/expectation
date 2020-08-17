@@ -1,6 +1,6 @@
 # A class to validate assertions
 
-##Usage:
+## Usage:
 
 ```php
 $myString = 'Testing';
