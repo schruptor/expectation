@@ -12,6 +12,10 @@ class Expectation
         $this->expected = $expected;
     }
 
+    /**
+     * @param $expected
+     * @return self|ArrayExpectation|StringExpectation|NumericExpectation
+     */
     public static function isThat($expected) : self
     {
         if (is_array($expected)) {
