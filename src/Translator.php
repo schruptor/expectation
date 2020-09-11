@@ -62,21 +62,21 @@ class Translator
         ],
     ];
 
-    public static function getLookup()
+    public function getLookup()
     {
         return self::$lookup;
     }
 
-    public static function get(String $class)
+    public function get(String $class)
     {
-        if (!array_key_exists($class, self::getLookup())) {
+        if (!array_key_exists($class, $this->getLookup())) {
             throw new \Exception('Zu übersetztenden Klasse nicht gefunden.');
         }
 
         if ($class === 'Schruptor\Expectation\Expectation') {
-            return self::getLookup()['Schruptor\Expectation\Expectation'];
+            return $this->getLookup()['Schruptor\Expectation\Expectation'];
         }
 
-        return array_merge(self::getLookup()[$class], self::getLookup()['Schruptor\Expectation\Expectation']);
+        return array_merge($this->getLookup()[$class], $this->getLookup()['Schruptor\Expectation\Expectation']);
     }
 }
