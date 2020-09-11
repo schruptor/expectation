@@ -19,7 +19,7 @@ class Expectation
      * @param $expected
      * @return self|ArrayExpectation|StringExpectation|NumericExpectation
      */
-    public static function isThat($expected) : self
+    public static function isThat($expected)
     {
         if (is_array($expected)) {
             return new ArrayExpectation($expected);
