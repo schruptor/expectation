@@ -2,6 +2,7 @@
 
 use Schruptor\Expectation\Expectation;
 use Schruptor\Expectation\StringExpectation;
+use function Schruptor\expect;
 
 beforeEach(function () {
     $this->string = 'Testing';

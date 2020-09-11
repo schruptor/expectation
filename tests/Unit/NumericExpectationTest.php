@@ -2,6 +2,7 @@
 
 use Schruptor\Expectation\Expectation;
 use Schruptor\Expectation\NumericExpectation;
+use function Schruptor\expect;
 
 beforeEach(function () {
     $this->integer = 1;

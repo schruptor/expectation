@@ -3,6 +3,7 @@ namespace Schruptor\Expectation\Tests;
 
 use Schruptor\Expectation\Expectation;
 use Schruptor\Expectation\ArrayExpectation;
+use function Schruptor\expect;
 
 beforeEach(function () {
     $this->array = ['a' => 'A', 'b' => 'B', 'c' => 'C'];

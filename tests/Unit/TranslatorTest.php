@@ -1,6 +1,7 @@
 <?php
 
 use Schruptor\Expectation\Translator;
+use function Schruptor\expect;
 
 beforeEach(function () {
     $this->string = 'Testing';

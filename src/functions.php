@@ -1,4 +1,5 @@
 <?php
+namespace Schruptor;
 
 use Schruptor\Expectation\Expectation;
 
