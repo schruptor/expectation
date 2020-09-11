@@ -4,7 +4,7 @@ namespace Schruptor\Expectation;
 
 class Translator
 {
-    public static $lookup = [
+    protected static $lookup = [
         'Schruptor\Expectation\StringExpectation' => [
             'toContain' => 'contains',
             'toBeLongerThan' => 'isLongerThan',
@@ -62,16 +62,21 @@ class Translator
         ],
     ];
 
+    public static function getLookup()
+    {
+        return self::$lookup;
+    }
+
     public static function get(String $class)
     {
-        if (!array_key_exists($class, self::$lookup)) {
+        if (!array_key_exists($class, self::getLookup())) {
             throw new \Exception('Zu übersetztenden Klasse nicht gefunden.');
         }
 
         if ($class === 'Schruptor\Expectation\Expectation') {
-            return self::$lookup['Schruptor\Expectation\Expectation'];
+            return self::getLookup()['Schruptor\Expectation\Expectation'];
         }
 
-        return array_merge(self::$lookup[$class], self::$lookup['Schruptor\Expectation\Expectation']);
+        return array_merge(self::getLookup()[$class], self::getLookup()['Schruptor\Expectation\Expectation']);
     }
 }
