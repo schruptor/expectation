@@ -7,6 +7,8 @@ class Expectation
     protected $expected;
     protected $result = null;
 
+    protected $translator = Translator::class;
+
     private function __construct($expected)
     {
         $this->expected = $expected;
@@ -225,10 +227,10 @@ class Expectation
 
     public function __call($name, $arguments)
     {
-        if (!array_key_exists($name, Translator::get(get_class($this)))) {
+        if (!array_key_exists($name, $this->translator::get(get_class($this)))) {
             throw new \Exception('Werfen ' . $name);
         }
 
-        return $this->{Translator::get(get_class($this))[$name]}(...$arguments);
+        return $this->{$this->translator::get(get_class($this))[$name]}(...$arguments);
     }
 }
