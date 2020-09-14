@@ -9,7 +9,7 @@ class Expectation
 
     protected $translator = Translator::class;
 
-    private function __construct($expected)
+    protected function __construct($expected)
     {
         $this->expected = $expected;
         $this->translator = new $this->translator;
