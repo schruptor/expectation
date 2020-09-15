@@ -226,6 +226,23 @@ class Expectation
         return $this;
     }
 
+    public function hasProperties(Array $properties)
+    {
+        $result = null;
+        foreach ($properties as $property) {
+            $result = property_exists($this->expected, $property);
+
+            if ($result === false) {
+                $this->setResult($result);
+                break;
+            }
+        }
+
+        $this->setResult($result);
+
+        return $this;
+    }
+
     public function __call($name, $arguments)
     {
         if (!array_key_exists($name, $this->translator->get(get_class($this)))) {

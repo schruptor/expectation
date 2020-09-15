@@ -12,7 +12,7 @@ beforeEach(function () {
     $this->array = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
     $this->bool = true;
     $this->callable = function () { return true; };
-    $this->object = (object) array('value' => true);
+    $this->object = (object) array('value' => true, 'key' => false);
     $this->empty = '';
     $this->null = null;
     $this->dir = __DIR__;
@@ -181,13 +181,41 @@ it('asserts that a sting can be checked for type with the not modifier', functio
     );
 });
 
-it('asserts that a object has a Property', function (){
+it('asserts that a object has a property', function (){
     assertTrue(
         Expectation::isThat($this->object)
             ->hasProperty('value')
             ->resolve()
     );
 });
+
+it('asserts that a object has multible properties', function (){
+    assertFalse(
+        Expectation::isThat($this->object)
+            ->hasProperties([
+                'keys',
+                'value',
+            ])
+            ->resolve()
+    );
+    assertTrue(
+        Expectation::isThat($this->object)
+            ->hasProperties([
+                'value',
+                'key'
+            ])
+            ->resolve()
+    );
+    assertFalse(
+        Expectation::isThat($this->object)
+            ->not()
+            ->hasProperties([
+                'value',
+                'key'
+            ])
+            ->resolve()
+    );
+})->only();
 
 it('asserts that two sting can be checked for type', function (){
     assertFalse(
