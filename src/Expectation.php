@@ -226,7 +226,7 @@ class Expectation
         return $this;
     }
 
-    public function hasProperties(Array $properties)
+    public function hasAllProperties(Array $properties)
     {
         $result = null;
         foreach ($properties as $property) {
@@ -239,6 +239,15 @@ class Expectation
         }
 
         $this->setResult($result);
+
+        return $this;
+    }
+
+    public function hasProperties(Array $properties)
+    {
+        foreach ($properties as $property) {
+            $this->hasProperty($property);
+        }
 
         return $this;
     }

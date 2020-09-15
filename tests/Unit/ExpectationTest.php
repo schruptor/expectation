@@ -189,8 +189,36 @@ it('asserts that a object has a property', function (){
     );
 });
 
-it('asserts that a object has multible properties', function (){
+it('asserts that a object has all multible properties', function (){
     assertFalse(
+        Expectation::isThat($this->object)
+            ->hasAllProperties([
+                'keys',
+                'value',
+            ])
+            ->resolve()
+    );
+    assertTrue(
+        Expectation::isThat($this->object)
+            ->hasAllProperties([
+                'value',
+                'key'
+            ])
+            ->resolve()
+    );
+    assertFalse(
+        Expectation::isThat($this->object)
+            ->not()
+            ->hasAllProperties([
+                'value',
+                'key'
+            ])
+            ->resolve()
+    );
+});
+
+it('asserts that a object has multible properties', function (){
+    assertTrue(
         Expectation::isThat($this->object)
             ->hasProperties([
                 'keys',
@@ -215,7 +243,7 @@ it('asserts that a object has multible properties', function (){
             ])
             ->resolve()
     );
-})->only();
+});
 
 it('asserts that two sting can be checked for type', function (){
     assertFalse(
