@@ -2,6 +2,7 @@
 
 namespace Schruptor\Expectation;
 
+/** @mixin Expectation */
 class InvertedExpectation
 {
     private $expectation;
