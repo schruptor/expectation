@@ -9,11 +9,11 @@ beforeEach(function () {
     $this->array = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
 });
 
-it('asserts that an array return the ArrayExpectation', function () {
+it('asserts that the expectation returns the ArrayExpectation when given an array', function () {
     assertTrue(Expectation::isThat($this->array) instanceof ArrayExpectation);
 });
 
-it('asserts that an array can be counted', function () {
+it('asserts that an array can be counted and count is equal', function () {
     assertFalse(expect($this->array)->hasCount(2)->resolve());
     assertTrue(expect($this->array)->hasCount(3)->resolve());
 });
@@ -92,7 +92,7 @@ it('asserts that array can be checked for specific values', function (){
     );
 });
 
-it('asserts that an array is exactly the same', function (){
+it('asserts that an array can be checked for equality', function (){
     assertTrue(
         Expectation::isThat($this->array)
             ->is($this->array)
@@ -105,7 +105,7 @@ it('asserts that an array is exactly the same', function (){
     );
 });
 
-it('asserts that an array is not exactly the same', function (){
+it('asserts that an array can be checked for not equality', function (){
     assertTrue(
         Expectation::isThat($this->array)
             ->isNot(['a' => 'b'])

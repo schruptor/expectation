@@ -11,34 +11,44 @@ beforeEach(function () {
     $this->translator = new Translator();
 });
 
-it('can get the translation for the normal expectation', function () {
+it('can translate for the normal Expectation', function () {
     $arrayTroughClass = $this->translator->get(get_class(expect($this->bool)));
 
-    $arrayThroughVariable = $this->translator->getLookup()['Schruptor\Expectation\Expectation'];
+    $arrayThroughVariable = $this->translator->getLookup('Expectation');
 
     assertEquals($arrayThroughVariable, $arrayTroughClass);
 });
 
-it('can get the translation for strings', function () {
+it('can translate for the StringExpectation', function () {
     $arrayTroughClass = $this->translator->get(get_class(expect($this->string)->isString()));
 
-    $arrayThroughVariable = array_merge($this->translator->getLookup()['Schruptor\Expectation\StringExpectation'], $this->translator->getLookup()['Schruptor\Expectation\Expectation']);
+
+    $arrayThroughVariable = array_merge(
+        $this->translator->getLookup('StringExpectation'),
+        $this->translator->getLookup('Expectation')
+    );
 
     assertEquals($arrayThroughVariable, $arrayTroughClass);
 });
 
-it('can get the translation for int', function () {
+it('can translate for the NumericExpectation', function () {
     $arrayTroughClass = $this->translator->get(get_class(expect($this->int)->isInt()));
 
-    $arrayThroughVariable = array_merge($this->translator->getLookup()['Schruptor\Expectation\NumericExpectation'], $this->translator->getLookup()['Schruptor\Expectation\Expectation']);
+    $arrayThroughVariable = array_merge(
+        $this->translator->getLookup('NumericExpectation'),
+        $this->translator->getLookup('Expectation')
+    );
 
     assertEquals($arrayThroughVariable, $arrayTroughClass);
 });
 
-it('can get the translation for array', function () {
+it('can translate for the ArrayExpectation', function () {
     $arrayTroughClass = $this->translator->get(get_class(expect($this->array)->isArray()));
 
-    $arrayThroughVariable = array_merge($this->translator->getLookup()['Schruptor\Expectation\ArrayExpectation'], $this->translator->getLookup()['Schruptor\Expectation\Expectation']);
+    $arrayThroughVariable = array_merge(
+        $this->translator->getLookup('ArrayExpectation'),
+        $this->translator->getLookup('Expectation')
+    );
 
     assertEquals($arrayThroughVariable, $arrayTroughClass);
 });

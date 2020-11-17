@@ -2,10 +2,12 @@
 
 namespace Schruptor\Expectation;
 
+use ReflectionClass;
+
 class Translator
 {
-    protected static $lookup = [
-        'Schruptor\Expectation\StringExpectation' => [
+    protected $lookup = [
+        'StringExpectation' => [
             'toContain' => 'contains',
             'toBeLongerThan' => 'isLongerThan',
             'toBeLongerOrEqualThan' => 'isLongerOrEqualThan',
@@ -13,7 +15,7 @@ class Translator
             'toBeShorterThan' => 'isShorterThan',
             'hasLength' => 'lengthIs',
         ],
-        'Schruptor\Expectation\ArrayExpectation' => [
+        'ArrayExpectation' => [
             'toContain' => 'hasValue',
             'contains' => 'hasValue',
             'toHaveCount' => 'hasCount',
@@ -26,14 +28,14 @@ class Translator
             'toHaveKey' => 'hasKey',
             'tohaveKeys' => 'hasKeys',
         ],
-        'Schruptor\Expectation\NumericExpectation' => [
+        'NumericExpectation' => [
             'toBe42' => 'is42',
             'toBeGreaterThan' => 'isGreaterThan',
             'toBeGreaterThanOrEqual' => 'isGreaterThanOrEqual',
             'toBeLessThan' => 'isLessThan',
             'toBeLessThanOrEqual' => 'isLessThanOrEqual',
         ],
-        'Schruptor\Expectation\Expectation' => [
+        'Expectation' => [
             'toBe' => 'is',
             'toEqual' => 'is',
             'isEqual' => 'is',
@@ -62,21 +64,27 @@ class Translator
         ],
     ];
 
-    public function getLookup()
+    public function getLookup(String $name = null) : array
     {
-        return self::$lookup;
+        if ($name && key_exists($name, $this->lookup)) {
+            return $this->lookup[$name];
+        }
+
+        return $this->lookup;
     }
 
     public function get(String $class)
     {
+        $class = (new ReflectionClass($class))->getShortName();
+
         if (!array_key_exists($class, $this->getLookup())) {
             throw new \Exception('Zu übersetztenden Klasse nicht gefunden.');
         }
 
-        if ($class === 'Schruptor\Expectation\Expectation') {
-            return $this->getLookup()['Schruptor\Expectation\Expectation'];
+        if ($class === 'Expectation') {
+            return $this->getLookup('Expectation');
         }
 
-        return array_merge($this->getLookup()[$class], $this->getLookup()['Schruptor\Expectation\Expectation']);
+        return array_merge($this->getLookup($class), $this->getLookup('Expectation'));
     }
 }
